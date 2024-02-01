@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aycap.pokedexappmvvm.R
@@ -24,13 +25,13 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
     private lateinit var design:FragmentPokedexBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        design = FragmentPokedexBinding.inflate(inflater,container,false)
-
-        design.toolbarPokedex.title = "Pokedex"
+        design = DataBindingUtil.inflate(inflater,R.layout.fragment_pokedex,container,false)
+        design.pokedexFragment = this
+        design.pokedexToolbarTitle = "Pokedex"
         (activity as AppCompatActivity).setSupportActionBar(design.toolbarPokedex) // Action bar özelliği verme.
 
         design.rv.setHasFixedSize(true)
-        design.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        //design.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
         val pokemonList = ArrayList<Pokemon>()
         val p1 = Pokemon(1,"Bulbasaur","Ivysaur","Grass","Poison","bulbasaur")
@@ -40,7 +41,7 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
         pokemonList.add(p2)
         pokemonList.add(p3)
         val adapter = PokemonAdapter(requireContext(),pokemonList)
-        design.rv.adapter = adapter
+        design.pokemonAdapter = adapter
 
         requireActivity().addMenuProvider(object : MenuProvider{ // Arama özelliğini aktif etme.
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {

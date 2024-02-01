@@ -4,8 +4,10 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.data.entity.Pokemon
 import com.aycap.pokedexappmvvm.databinding.CardDesignBinding
 import com.aycap.pokedexappmvvm.ui.fragment.PokedexFragmentDirections
@@ -21,7 +23,7 @@ class PokemonAdapter(var mContext: Context,var pokemonList: List<Pokemon>) : Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardDesignHolder { // Card Tasarim View Binding Kurulumu
         val layoutInflater = LayoutInflater.from(mContext)
-        val binding = CardDesignBinding.inflate(layoutInflater,parent,false)
+        val binding:CardDesignBinding = DataBindingUtil.inflate(layoutInflater,R.layout.card_design,parent,false)
         return CardDesignHolder(binding)
     }
 
@@ -32,8 +34,10 @@ class PokemonAdapter(var mContext: Context,var pokemonList: List<Pokemon>) : Rec
     override fun onBindViewHolder(holder: CardDesignHolder, position: Int) {
         val pokemon = pokemonList.get(position)
         val d = holder.design
+        d.pokemonObj = pokemon
         d.imageViewPokemonPic.setImageResource(
             mContext.resources.getIdentifier(pokemon.pokemon_picture_name,"drawable",mContext.packageName))
+
         d.textViewPokemonId.text ="${pokemon.pokemon_id}"
         d.textViewPokemonName.text = pokemon.pokemon_name
 
