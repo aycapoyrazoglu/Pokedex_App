@@ -13,17 +13,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.data.entity.Pokemon
 import com.aycap.pokedexappmvvm.databinding.FragmentPokedexBinding
 import com.aycap.pokedexappmvvm.ui.adapter.PokemonAdapter
+import com.aycap.pokedexappmvvm.ui.viewmodel.PokedexViewModel
 
 class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
 
     private lateinit var design:FragmentPokedexBinding
-
+    private lateinit var viewModel:PokedexViewModel
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         design = DataBindingUtil.inflate(inflater,R.layout.fragment_pokedex,container,false)
         design.pokedexFragment = this
@@ -33,15 +35,12 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
         design.rv.setHasFixedSize(true)
         //design.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
-        val pokemonList = ArrayList<Pokemon>()
-        val p1 = Pokemon(1,"Bulbasaur","Ivysaur","Grass","Poison","bulbasaur")
-        val p2 = Pokemon(2,"Ivysaur","Venusaur","Grass","Poison","ivysaur")
-        val p3 = Pokemon(3,"Venusaur","","Grass","Poiison","venusaur")
-        pokemonList.add(p1)
-        pokemonList.add(p2)
-        pokemonList.add(p3)
-        val adapter = PokemonAdapter(requireContext(),pokemonList)
-        design.pokemonAdapter = adapter
+       viewModel.pokemonList.observe(viewLifecycleOwner)
+       {
+           val adapter = PokemonAdapter(requireContext(),it)
+           design.pokemonAdapter = adapter
+
+       }
 
         requireActivity().addMenuProvider(object : MenuProvider{ // Arama özelliğini aktif etme.
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -59,18 +58,20 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
         return design.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val tempViewModel : PokedexViewModel by viewModels()
+        viewModel = tempViewModel
+    }
     override fun onQueryTextSubmit(query: String): Boolean {
-        search(query)
+        viewModel.search(query)
         return true
     }
 
     override fun onQueryTextChange(newText: String): Boolean {
-        search(newText)
+        viewModel.search(newText)
         return true
     }
 
-    fun search(searchWord:String){
-        Log.e("Pokemon Search",searchWord)
-    }
 
 }
