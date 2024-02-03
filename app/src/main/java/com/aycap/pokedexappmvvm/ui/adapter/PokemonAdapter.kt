@@ -11,6 +11,7 @@ import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.data.entity.Pokemon
 import com.aycap.pokedexappmvvm.databinding.CardDesignBinding
 import com.aycap.pokedexappmvvm.ui.fragment.PokedexFragmentDirections
+import com.aycap.pokedexappmvvm.util.transition
 
 class PokemonAdapter(var mContext: Context,var pokemonList: List<Pokemon>) : RecyclerView.Adapter<PokemonAdapter.CardDesignHolder>() {
 
@@ -43,7 +44,7 @@ class PokemonAdapter(var mContext: Context,var pokemonList: List<Pokemon>) : Rec
 
         d.pokemonCard.setOnClickListener{
             val transition = PokedexFragmentDirections.pokemonDetailTransition(pokemon = pokemon)
-            Navigation.findNavController(it).navigate(transition)
+            Navigation.transition(it,transition)
         }
 
     }

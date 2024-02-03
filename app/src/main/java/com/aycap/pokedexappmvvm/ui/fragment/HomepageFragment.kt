@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.databinding.FragmentHomepageBinding
+import com.aycap.pokedexappmvvm.util.transition
 
 class HomepageFragment : Fragment() {
 
@@ -22,7 +23,7 @@ class HomepageFragment : Fragment() {
 
     fun buttonLoadClick(it:View)
     {
-        Navigation.findNavController(it).navigate(R.id.pokedexTransition) // Homepage -> PokemonFragment transition.
+        Navigation.transition(it,R.id.pokedexTransition) // Homepage -> PokemonFragment transition.
     }
 
 }
