@@ -10,7 +10,9 @@ import androidx.navigation.Navigation
 import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.databinding.FragmentHomepageBinding
 import com.aycap.pokedexappmvvm.util.transition
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomepageFragment : Fragment() {
 
     private lateinit var design:FragmentHomepageBinding

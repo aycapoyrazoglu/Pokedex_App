@@ -21,7 +21,9 @@ import com.aycap.pokedexappmvvm.data.entity.Pokemon
 import com.aycap.pokedexappmvvm.databinding.FragmentPokedexBinding
 import com.aycap.pokedexappmvvm.ui.adapter.PokemonAdapter
 import com.aycap.pokedexappmvvm.ui.viewmodel.PokedexViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
 
     private lateinit var design:FragmentPokedexBinding

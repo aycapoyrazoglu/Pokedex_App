@@ -5,9 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.aycap.pokedexappmvvm.data.entity.Pokemon
 import com.aycap.pokedexappmvvm.data.repo.PokemonDaoRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PokedexViewModel : ViewModel() {
-    val prepo = PokemonDaoRepository()
+@HiltViewModel
+class PokedexViewModel @Inject constructor(var prepo:PokemonDaoRepository) : ViewModel() {
+
     var pokemonList = MutableLiveData<List<Pokemon>>()
     init {
         allPokemonShow()

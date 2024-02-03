@@ -10,8 +10,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.fragment.navArgs
 import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.databinding.FragmentPokemonDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PokemonDetailFragment : Fragment() {
 
     private lateinit var design:FragmentPokemonDetailBinding
@@ -26,10 +27,7 @@ class PokemonDetailFragment : Fragment() {
         design.pokemonObj = pokemon
 
         design.imageViewPokemonPictureDetail.setImageResource(requireContext().resources.getIdentifier(pokemon.pokemon_picture_name,"drawable",requireContext().packageName))
-        //design.textViewPokemonNameDetail.setText(pokemon.pokemon_name)
-        //design.textViewPokemonType.setText(pokemon.pokemon_type1)
-        //design.textViewPokemonType2.setText(pokemon.pokemon_type2)
-        //design.textViewPokemonEvolve.setText("Evolve: ${pokemon.pokemon_evolve}")
+
         return design.root
     }
 
