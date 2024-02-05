@@ -15,6 +15,7 @@ import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.aycap.pokedexappmvvm.R
 import com.aycap.pokedexappmvvm.data.entity.Pokemon
@@ -34,12 +35,12 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
         design.pokedexToolbarTitle = "Pokedex"
         (activity as AppCompatActivity).setSupportActionBar(design.toolbarPokedex) // Action bar özelliği verme.
 
-        design.rv.setHasFixedSize(true)
-        //design.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
 
+        //design.rv.layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
        viewModel.pokemonList.observe(viewLifecycleOwner)
        {
            val adapter = PokemonAdapter(requireContext(),it)
+           design.rv.setHasFixedSize(true)
            design.pokemonAdapter = adapter
 
        }
@@ -75,5 +76,8 @@ class PokedexFragment : Fragment(),SearchView.OnQueryTextListener {
         return true
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        viewModel.allPokemonShow()
+    }
 }

@@ -1,7 +1,6 @@
 package com.aycap.pokedexappmvvm.ui.adapter
 
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -39,7 +38,7 @@ class PokemonAdapter(var mContext: Context,var pokemonList: List<Pokemon>) : Rec
         d.imageViewPokemonPic.setImageResource(
             mContext.resources.getIdentifier(pokemon.pokemon_picture_name,"drawable",mContext.packageName))
 
-        d.textViewPokemonId.text ="${pokemon.pokemon_id}"
+        //d.textViewPokemonId.text ="${pokemon.pokemon_id}"
         d.textViewPokemonName.text = pokemon.pokemon_name
 
         d.pokemonCard.setOnClickListener{

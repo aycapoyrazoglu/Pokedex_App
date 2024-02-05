@@ -20,7 +20,11 @@ class PokemonDaoRepository(var pdao:PokemonDao) {
         return pokemonList
     }
     fun searchPokemon(searchWord:String){
-        Log.e("Pokemon Search",searchWord)
+        val job = CoroutineScope(Dispatchers.Main).launch {
+            pokemonList.value = pdao.searchPeople(searchWord)
+        }
+
+        Log.e("Search",searchWord)
     }
 
     fun getAllPokemon()
